@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08301b58dc11e44f69bd6ca889224cbb, type: 3}
+  m_Name: HumanSpriteRegistry
+  m_EditorClassIdentifier: 
+  mappings:
+  - type: 0
+    sprite: {fileID: 21300000, guid: e66abeaf522fa414bb56c78aba71170c, type: 3}
+  - type: 1
+    sprite: {fileID: 21300000, guid: 95d49072e9382414eb8636c6c307dc5f, type: 3}
+  - type: 2
+    sprite: {fileID: 21300000, guid: a9b746efb414748349c1c0da692e3e4b, type: 3}
+  - type: 3
+    sprite: {fileID: 21300000, guid: bca83bf7857e5405494b79f18aecae7e, type: 3}

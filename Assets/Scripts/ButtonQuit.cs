@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Quits game
+/// Quits the application, either in the editor or a built app
 /// </summary>
 public class ButtonQuit : MonoBehaviour
 {

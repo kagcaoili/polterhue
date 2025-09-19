@@ -31,7 +31,7 @@ public class HumanMovement : MonoBehaviour
     public void Setup()
     {
         human = GetComponent<Human>();
-        _rng = new System.Random(GameManager.Instance.seed + human.id + GameManager.HUMAN_SEED_OFFSET);
+        _rng = new System.Random(GameManagerOld.Instance.seed + human.id + GameManagerOld.HUMAN_SEED_OFFSET);
         _levelData = human.levelData;
         _currentGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
         _targetGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
@@ -67,7 +67,7 @@ public class HumanMovement : MonoBehaviour
         if (t >= 1f)
         {
             _currentGridPos = _stepGridPos; // Update current position to current step position
-            GameManager.Instance.gridManager.RegisterHumanArrival(this, _currentGridPos); // Notify ghost manager of new position for collision detection
+            GameManagerOld.Instance.gridManager.RegisterHumanArrival(this, _currentGridPos); // Notify ghost manager of new position for collision detection
             isMoving = false;
 
             if (_currentGridPos == _targetGridPos)

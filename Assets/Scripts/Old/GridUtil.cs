@@ -9,14 +9,14 @@ public static class GridUtil
     {
         // Convert grid position to world position
         Vector3Int cellPos = new Vector3Int((int)gridPosition.x, (int)gridPosition.y, 0);
-        Tilemap tileMap = GameManager.Instance.tileMap;
+        Tilemap tileMap = GameManagerOld.Instance.tileMap;
         return tileMap.CellToWorld(cellPos) + tileMap.cellSize * 0.5f; // Center the position in the cell
     }
 
     public static bool IsValidGridPosition(Vector2 gridPosition)
     {
         Vector3Int cell = new Vector3Int((int)gridPosition.x, (int)gridPosition.y, 0);
-        Tilemap tileMap = GameManager.Instance.tileMap;
+        Tilemap tileMap = GameManagerOld.Instance.tileMap;
         return tileMap.HasTile(cell);
     }
 

@@ -18,14 +18,14 @@ public class SceneBootstrapper : MonoBehaviour
     void Start()
     {
         // Improvement: Support starting from game scene for quicker testing
-        if (GameManager.Instance == null)
+        if (GameManagerOld.Instance == null)
         {
             Debug.LogError("GameManager instance is not set. Must play from title screen.");
             return;
         }
 
         SceneContext sceneContext = new SceneContext(mainCamera, mainCanvas, ghostRoot, portalRoot, humanRoot, tileMapRoot, gameover);
-        GameManager.Instance.RegisterSceneContext(sceneContext);
+        GameManagerOld.Instance.RegisterSceneContext(sceneContext);
     }
 }
 

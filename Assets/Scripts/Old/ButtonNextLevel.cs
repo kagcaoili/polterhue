@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// ButtonNextLevel is responsible for starting the next level when the button is clicked.
 /// </summary>
-public class ButtonMainMenu : MonoBehaviour
+public class ButtonNextLevel : MonoBehaviour
 {
     public void OnClick()
     {
-        GameManager.Instance.ReturnToMainMenu();
+        GameManagerOld.Instance.StartNextLevel();
     }
 }

@@ -31,7 +31,7 @@ public class GhostMovement : MonoBehaviour
     public void Setup()
     {
         ghost = GetComponent<Ghost>();
-        _rng = new System.Random(GameManager.Instance.seed + ghost.id + GameManager.GHOST_SEED_OFFSET);
+        _rng = new System.Random(GameManagerOld.Instance.seed + ghost.id + GameManagerOld.GHOST_SEED_OFFSET);
         _levelData = ghost.levelData;
         _currentGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
         _targetGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
@@ -68,7 +68,7 @@ public class GhostMovement : MonoBehaviour
         if (t >= 1f)
         {
             _currentGridPos = _stepGridPos; // Update current position to current step position
-            GameManager.Instance.gridManager.RegisterGhostArrival(this, _currentGridPos); // Notify ghost manager of new position for collision detection
+            GameManagerOld.Instance.gridManager.RegisterGhostArrival(this, _currentGridPos); // Notify ghost manager of new position for collision detection
             isMoving = false;
 
             // We reached target position.

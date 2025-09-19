@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// LevelData holds information about the level, including grid size and spawn locations for ghosts and humans.
+/// LevelData holds information about the level, including grid size and spawn location for human.
 /// </summary>
 [CreateAssetMenu(fileName = "LevelData", menuName = "Scriptable Objects/LevelData")]
 public class LevelData : ScriptableObject
 {
     [Header("Level Settings")]
     public int levelIndex;
-    public int initialSoulCount = 3; // Max souls available at start of level
-    public int initialGhostCount = 4; // Number of ghosts to spawn at start of level
     public int initialHumanCount = 1; // Number of humans to spawn at start of
     public GameObject tileMapPrefab; // Tilemap used for this level
 

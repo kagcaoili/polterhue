@@ -1,51 +1,20 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Manages level loading and progression
+/// </summary>
 public class LevelManager : MonoBehaviour
 {
-    public List<LevelData> levels = new List<LevelData>();
-    private Transform _tileMapRoot;
-
-    public void Setup(Transform tileMapRoot)
+    public event Action OnLevelComplete;
+    public void LoadLevel(int levelIndex)
     {
-        _tileMapRoot = tileMapRoot;
-
-        // Check if levels are set up
-        if (levels == null || levels.Count == 0)
-        {
-            Debug.LogError("No LevelData found in LevelManager.");
-            return;
-        }
+        Debug.Log($"Loading level {levelIndex}");
+        // Implement level loading logic here
     }
 
-    public (LevelData, Tilemap) LoadLevel(int levelIndex)
+    private void PlayerCompletedLevel()
     {
-        if (levelIndex < 0 || levelIndex >= levels.Count)
-        {
-            Debug.LogError($"Invalid level index: {levelIndex}. Cannot load level.");
-            return (null, null);
-        }
-
-        LevelData levelData = levels[levelIndex];
-        GameObject tileMapObject = Instantiate(levelData.tileMapPrefab);
-
-        // Set the parent to the tile map root
-        tileMapObject.transform.SetParent(_tileMapRoot, false);
-
-        Tilemap tilemap = tileMapObject.GetComponent<Tilemap>();
-        tilemap.CompressBounds();
-        levelData.SetGridBounds(tilemap.origin, tilemap.size);
-        Debug.Log("Grid bounds set: " + levelData.gridOrigin + ", " + levelData.gridSize);
-
-        Debug.Log($"Loading Level {levelData.levelIndex}");
-        return (levelData, tilemap);
-    }
-
-    // Returns true if level index is the last level of the game
-    // Used for handling gameover screen
-    public bool LastLevel(int levelIndex)
-    {
-        return levelIndex == levels.Count - 1;
+        OnLevelComplete?.Invoke();
     }
 }

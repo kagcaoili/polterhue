@@ -43,6 +43,8 @@ public static class GridUtil
         return bestStep;
     }
 
+    /*
+    TODO: v2 Moving away from Random position generation. Use predefined spawn points instead.
     public static Vector2 GetRandomGridPosition(System.Random rng, LevelData levelData)
     {
         if (rng == null)
@@ -56,4 +58,5 @@ public static class GridUtil
         int y = rng.Next((int)levelData.gridOrigin.y, (int)levelData.gridOrigin.y + (int)levelData.gridSize.y);
         return new Vector2(x, y);
     }
+    */
 }

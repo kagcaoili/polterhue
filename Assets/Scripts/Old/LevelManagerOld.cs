@@ -35,8 +35,8 @@ public class LevelManagerOld : MonoBehaviour
 
         Tilemap tilemap = tileMapObject.GetComponent<Tilemap>();
         tilemap.CompressBounds();
-        levelData.SetGridBounds(tilemap.origin, tilemap.size);
-        Debug.Log("Grid bounds set: " + levelData.gridOrigin + ", " + levelData.gridSize);
+        //levelData.SetGridBounds(tilemap.origin, tilemap.size);
+        //Debug.Log("Grid bounds set: " + levelData.gridOrigin + ", " + levelData.gridSize);
 
         Debug.Log($"Loading Level {levelData.levelIndex}");
         return (levelData, tilemap);

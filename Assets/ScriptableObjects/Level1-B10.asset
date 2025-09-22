@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1ad610df4ff41138bef685759b3751, type: 3}
-  m_Name: Level2-FourvsFour
+  m_Name: Level1-B10
   m_EditorClassIdentifier: 
-  levelIndex: 2
-  initialSoulCount: 3
-  initialGhostCount: 4
-  initialHumanCount: 4
-  tileMapPrefab: {fileID: 5733536546476065027, guid: a4eac7d7fd59a43868ff6f16aea97135, type: 3}
+  levelIndex: 0
+  initialHumanCount: 1
+  tileMapPrefab: {fileID: 0}
+  levelIntro: {fileID: 0}
+  levelOutro: {fileID: 0}

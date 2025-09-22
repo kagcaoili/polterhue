@@ -33,9 +33,18 @@ public class HumanMovement : MonoBehaviour
         human = GetComponent<Human>();
         _rng = new System.Random(GameManagerOld.Instance.seed + human.id + GameManagerOld.HUMAN_SEED_OFFSET);
         _levelData = human.levelData;
+
+        /*
+        TODO: v2 Moving away from Random position generation. Use predefined spawn points instead.
         _currentGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
         _targetGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
         _stepGridPos = GridUtil.GetNextStepGridPosition(_currentGridPos, _targetGridPos, directions);
+        */
+
+        // TODO: Replace with predefined spawn points per level or AI behavior
+        _currentGridPos = new Vector2(0, 0);
+        _targetGridPos = new Vector2(0, 0);
+        _stepGridPos = new Vector2(0, 0);
     }
 
     // Wait for GhostManager to say it's ok to move
@@ -72,7 +81,10 @@ public class HumanMovement : MonoBehaviour
 
             if (_currentGridPos == _targetGridPos)
             {
-                _targetGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
+                // TODO: v2 Moving away from Random positions. Stay still until human has a target action.
+                // Replace 0,0 with target position
+                _targetGridPos = new Vector2(0, 0);
+                //_targetGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
                 _stepGridPos = GridUtil.GetNextStepGridPosition(_currentGridPos, _targetGridPos, directions);
                 moveTimer = 0f;
             }

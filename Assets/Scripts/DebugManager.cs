@@ -6,8 +6,9 @@ using UnityEngine;
 public class DebugManager : MonoBehaviour
 {
     // Toggle debug mode on or off
-    [SerializeField] private bool debugMode = false;
+    public bool DebugMode = false;
 
     // Index of the level to load when starting game
-    [SerializeField] private int startLevelIndex = 0;
+    // TODO: How to only set via editor and not in code? Set to public for quick access
+    public int startLevelIndex = 0;
 }

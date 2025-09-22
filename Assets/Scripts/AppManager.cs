@@ -9,6 +9,7 @@ public class AppManager : MonoBehaviour
     public AudioManager AudioManager { get; private set; }
     public SaveManager SaveManager { get; private set; }
     public DebugManager DebugManager { get; private set; }
+    public InputManager InputManager { get; private set; }
     // Add other managers here as needed
 
     #region Singleton
@@ -27,6 +28,7 @@ public class AppManager : MonoBehaviour
         AudioManager = GetComponentInChildren<AudioManager>();
         SaveManager = GetComponentInChildren<SaveManager>();
         DebugManager = GetComponentInChildren<DebugManager>();
+        InputManager = GetComponentInChildren<InputManager>();
     }
     #endregion
 

@@ -10,7 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e96154cc1c8224d639844f22bbe3c4fe, type: 3}
-  m_Name: Level1-Intro
+  m_Name: Level1-OutroDS
   m_EditorClassIdentifier: 
-  lines: []
+  lines:
+  - text: That must be the way out.
+    isLeftSide: 1
   isBlocking: 1
+  defaultLeftPortrait: {fileID: 21300000, guid: d5a2400590a524e0f888e18b85e311f3, type: 3}
+  defaultRightPortrait: {fileID: 21300000, guid: fd7d3a68ec2d84ed5aef37b308da6fdb, type: 3}

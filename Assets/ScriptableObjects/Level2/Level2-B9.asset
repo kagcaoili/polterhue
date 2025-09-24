@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1ad610df4ff41138bef685759b3751, type: 3}
+  m_Name: Level2-B9
+  m_EditorClassIdentifier: 
+  levelIndex: 0
+  initialHumanCount: 1
+  tileMapPrefab: {fileID: 5733536546476065027, guid: a4eac7d7fd59a43868ff6f16aea97135, type: 3}
+  levelIntro: {fileID: 11400000, guid: 0e1f8d788483342ec89566130bedb9ee, type: 2}
+  levelOutro: {fileID: 11400000, guid: bde5d724206734c5eb4765e973c34962, type: 2}

@@ -20,8 +20,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Color inactiveSpeakerColor; // disabled gray, alpha
     // TODO: Speed of text
 
-    private DialogueSequence currentSequence;
-    private Queue<DialogueLine> queuedLines;
+    private Queue<DialogueEntry> queuedLines;
     private InputManager _inputManager; // TODO: Is this needed or can we just use AppManager?
 
     public void Setup(InputManager inputManager)
@@ -43,12 +42,16 @@ public class DialogueManager : MonoBehaviour
         {
             foreach (var line in sequence.lines)
             {
-                queuedLines.Enqueue(line);
+                queuedLines.Enqueue(new DialogueEntry(line, sequence));
             }
             return;
         }
 
-        queuedLines = new Queue<DialogueLine>(sequence.lines);
+        queuedLines = new Queue<DialogueEntry>();
+        foreach (var line in sequence.lines)
+        {
+            queuedLines.Enqueue(new DialogueEntry(line, sequence));
+        }
         ShowNextLine(); // Prep first line before enabling UI
 
         // Setup input to listen for advance dialogue events
@@ -66,19 +69,20 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        DialogueLine line = queuedLines.Dequeue();
+        DialogueEntry entry = queuedLines.Dequeue();
+        DialogueLine line = entry.line;
 
         // TODO: Animate text display over time instead of instant
         // TODO: Clean up readability
         if (line.isLeftSide)
         {
             leftText.text = line.text;
-            // TODO: DialogueSequence contains portraits. Need to have access to those here. New wrapper object for line like DialogueEntry?
-            //leftPortrait.sprite = line.characterPortrait;
+            leftPortrait.sprite = entry.sequence.defaultLeftPortrait;
             leftText.color = activeSpeakerColor;
             leftPortrait.color = activeSpeakerColor;
             rightText.color = inactiveSpeakerColor;
             rightPortrait.color = inactiveSpeakerColor;
+            rightPortrait.sprite = entry.sequence.defaultRightPortrait;
 
             leftText.gameObject.SetActive(true);
             leftPortrait.gameObject.SetActive(true);
@@ -88,11 +92,12 @@ public class DialogueManager : MonoBehaviour
         else
         {
             rightText.text = line.text;
-            //rightPortrait.sprite = line.characterPortrait;
+            rightPortrait.sprite = entry.sequence.defaultRightPortrait;
             rightText.color = activeSpeakerColor;
             rightPortrait.color = activeSpeakerColor;
             leftText.color = inactiveSpeakerColor;
             leftPortrait.color = inactiveSpeakerColor;
+            leftPortrait.sprite = entry.sequence.defaultLeftPortrait;
 
             rightText.gameObject.SetActive(true);
             rightPortrait.gameObject.SetActive(true);

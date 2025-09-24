@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96154cc1c8224d639844f22bbe3c4fe, type: 3}
+  m_Name: Level1-IntroDS
+  m_EditorClassIdentifier: 
+  lines:
+  - text: Hello
+    isLeftSide: 1
+  - text: Who are you?
+    isLeftSide: 0
+  - text: Lost. Can you help me home?
+    isLeftSide: 1
+  isBlocking: 1
+  defaultLeftPortrait: {fileID: 21300000, guid: d5a2400590a524e0f888e18b85e311f3, type: 3}
+  defaultRightPortrait: {fileID: 21300000, guid: fd7d3a68ec2d84ed5aef37b308da6fdb, type: 3}

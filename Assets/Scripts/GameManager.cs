@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Manages high level game loop state and delegates to other managers as needed
@@ -19,8 +20,8 @@ public class GameManager : MonoBehaviour
         Paused      // game is paused
     }
     private GameState currentState;
-
-    private LevelData currentLevelData;
+    private Coroutine gameCoroutine;
+    private LevelData currentLevelData; // TODO: Check for stale reference
 
     // Reference to local scene managers
     [SerializeField] private LevelManager levelManager;
@@ -43,6 +44,9 @@ public class GameManager : MonoBehaviour
         dialogueManager.Setup(AppManager.Instance.InputManager);
     }
 
+    /// <summary>
+    /// Starts the game by loading the first level and playing its intro dialogue
+    /// </summary>
     private void StartGame()
     {
         currentState = GameState.Intro;
@@ -58,8 +62,37 @@ public class GameManager : MonoBehaviour
             currentLevelData = levelManager.LoadLevel(0); // Load first level by default
             // TODO: Load last saved level
         }
-        
-        //dialogueManager.StartDialogue("IntroDialogue");
+
+        dialogueManager.PlayDialogue(currentLevelData.levelIntro);
+    }
+
+    private void RunGame()
+    {
+        currentState = GameState.Playing;
+
+        // Check for existing game loop, could happen if player restarts level
+        if (gameCoroutine != null)
+        {
+            StopCoroutine(gameCoroutine);
+        }
+
+        gameCoroutine = StartCoroutine(RunGameCR());
+    }
+
+    private IEnumerator RunGameCR()
+    {
+        while (CheckGameover() == false)
+        {
+            // Game loop logic here
+            yield return null;
+        }
+
+        // TODO: How to handle level complete? LevelManager currently has callback. 
+    }
+
+    private bool CheckGameover()
+    {
+        return true; // TODO: Implement game over condition
     }
 
     /// <summary>
@@ -70,9 +103,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Dialogue Complete!");
         if (currentState == GameState.Intro)
         {
-            currentState = GameState.Playing;
-            // Give player control
-        } else if (currentState == GameState.Outro)
+            RunGame(); // Start main game loop after intro dialogue
+        }
+        else if (currentState == GameState.Outro)
         {
             currentState = GameState.Exit;
             // Transition to next level or end game
@@ -84,6 +117,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Level Complete!");
         currentState = GameState.Outro;
-        //dialogueManager.StartDialogue("LevelCompleteDialogue");
+        dialogueManager.PlayDialogue(currentLevelData.levelOutro);
     }
 }

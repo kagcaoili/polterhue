@@ -81,18 +81,14 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RunGameCR()
     {
-        while (CheckGameover() == false)
+        // Remains in playing state until HandleLevelComplete is evoked by LevelManager 
+        // LevelManager will directly StopCoroutine
+        // But HandleLevelComplete transitions to Outro state which also stops this coroutine as fail safe
+        while (currentState == GameState.Playing)
         {
             // Game loop logic here
             yield return null;
         }
-
-        // TODO: How to handle level complete? LevelManager currently has callback. 
-    }
-
-    private bool CheckGameover()
-    {
-        return true; // TODO: Implement game over condition
     }
 
     /// <summary>
@@ -118,5 +114,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Level Complete!");
         currentState = GameState.Outro;
         dialogueManager.PlayDialogue(currentLevelData.levelOutro);
+
+        // Stop playing game loop CR
+        if (gameCoroutine != null)
+        {
+            StopCoroutine(gameCoroutine);
+            gameCoroutine = null;
+        }
     }
 }

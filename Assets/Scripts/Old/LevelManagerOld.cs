@@ -28,7 +28,7 @@ public class LevelManagerOld : MonoBehaviour
         }
 
         LevelData levelData = levels[levelIndex];
-        GameObject tileMapObject = Instantiate(levelData.tileMapPrefab);
+        GameObject tileMapObject = Instantiate(levelData.levelPrefab);
 
         // Set the parent to the tile map root
         tileMapObject.transform.SetParent(_tileMapRoot, false);

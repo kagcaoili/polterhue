@@ -4,13 +4,21 @@ using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 
 /// <summary>
-/// Manages level loading and progression
+/// Manages level loading and progression and creating entities in the level
+/// Subscribed to events that entities may emit
+/// Responsible for deciding when the level ends and notifying GameManager
 /// </summary>
 public class LevelManager : MonoBehaviour
 {
-    public List<LevelData> levels = new List<LevelData>();
-    public Transform levelMapRoot; // Acts as parent for instantiated tilemap
-    public event Action OnLevelComplete;
+    [SerializeField] private List<LevelData> levels = new List<LevelData>();
+    [SerializeField] private Transform levelMapRoot; // Acts as parent for instantiated tilemap
+    [SerializeField] private Transform humanSpawnRoot; // Acts as parent for instantiated humans
+    [SerializeField] private Ghost mainGhost; // Reference to the main player ghost in scene
+
+    public event Action OnLevelComplete; // Notifies listeners (GameManager) that level is complete
+
+    private Ghost ghost;
+    private List<Human> humans;
 
     private void Start()
     {
@@ -24,6 +32,7 @@ public class LevelManager : MonoBehaviour
     public LevelData LoadLevel(int levelIndex)
     {
         Debug.Log($"Loading level {levelIndex}");
+        CleanLevelScene();
 
         if (!ValidLevelIndex(levelIndex))
         {
@@ -31,16 +40,29 @@ public class LevelManager : MonoBehaviour
             return null;
         }
 
-        LevelData levelData = levels[levelIndex];
-        GameObject tileMapObject = Instantiate(levelData.tileMapPrefab);
+        LevelData levelData = levels[levelIndex]; // scriptable object data
+        LevelEntityConfig levelConfig = Instantiate(levelData.levelPrefab).GetComponent<LevelEntityConfig>();
 
-        // Set the parent to the tile map root
-        tileMapObject.transform.SetParent(levelMapRoot, false);
+        // Set the parent to the tile map root to clean hierarchy
+        levelConfig.transform.SetParent(levelMapRoot, false);
 
-        Tilemap tilemap = tileMapObject.GetComponent<Tilemap>();
+        Tilemap tilemap = levelConfig.tileMap;
         tilemap.CompressBounds();
         //levelData.SetGridBounds(tilemap.origin, tilemap.size);
         //Debug.Log("Grid bounds set: " + levelData.gridOrigin + ", " + levelData.gridSize);
+
+        // Reposition ghost to new spawn point in this level
+        // TODO: Concerned with mapping 3d position to 2d tilemap
+        mainGhost.transform.position = levelConfig.ghostSpawnRoot.position;
+
+        // TODO: Instantiate humans at spawn points
+        if (!ValidHumanSpawnRootsEqualToCount(levelConfig, levelData))
+        {
+            Debug.LogError($"Mismatch between human spawn points ({levelConfig.humanSpawnRoots.Length}) and initial human count ({levelData.initialHumanCount}) in LevelData {levelData.levelIndex}");
+            return null;
+        }
+        humans = new List<Human>();
+        // instantiate code here. need each spawn point to know what prefab to create
 
         Debug.Log($"Loading Level {levelData.levelIndex}");
         return levelData;
@@ -50,7 +72,28 @@ public class LevelManager : MonoBehaviour
     {
         OnLevelComplete?.Invoke();
     }
-    
+
+    /// <summary>
+    /// Removes humans and cleans up the tilemap
+    /// Don't destroy ghost as it persists between levels
+    /// </summary>
+    private void CleanLevelScene()
+    {
+        foreach (Transform child in humanSpawnRoot)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in levelMapRoot)
+        {
+            Destroy(child.gameObject);
+        }
+
+        humans = null;
+    }
+
+    #region Validation
+
     /// <summary>
     /// Validates if the level index is within the bounds of available levels
     /// </summary>
@@ -60,4 +103,18 @@ public class LevelManager : MonoBehaviour
     {
         return levelIndex >= 0 && levelIndex < levels.Count;
     }
+
+    /// <summary>
+    /// Validates if the LevelEntityConfig has the correct number of human spawn points for LevelData
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    private bool ValidHumanSpawnRootsEqualToCount(LevelEntityConfig config, LevelData data)
+    {
+        return config.humanSpawnRoots.Length == data.initialHumanCount;
+    }
+
+
+    #endregion
 }

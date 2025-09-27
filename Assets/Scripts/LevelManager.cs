@@ -53,16 +53,30 @@ public class LevelManager : MonoBehaviour
 
         // Reposition ghost to new spawn point in this level
         // TODO: Concerned with mapping 3d position to 2d tilemap
-        mainGhost.transform.position = levelConfig.ghostSpawnRoot.position;
+        mainGhost.transform.position = levelConfig.ghostSpawnPoint.position;
 
-        // TODO: Instantiate humans at spawn points
-        if (!ValidHumanSpawnRootsEqualToCount(levelConfig, levelData))
+        // Instantiate humans at spawn points
+        // Validate that the number of spawn points in the level matches the human count set in the data
+        if (!ValidHumanSpawnEqualToCount(levelConfig, levelData))
         {
-            Debug.LogError($"Mismatch between human spawn points ({levelConfig.humanSpawnRoots.Length}) and initial human count ({levelData.initialHumanCount}) in LevelData {levelData.levelIndex}");
+            Debug.LogError($"Mismatch between human spawn points ({levelConfig.humanSpawnPoints.Length}) and initial human count ({levelData.initialHumanCount}) in LevelData {levelData.levelIndex}");
             return null;
         }
         humans = new List<Human>();
-        // instantiate code here. need each spawn point to know what prefab to create
+        for (int i = 0; i < levelData.initialHumanCount; i++)
+        {
+            Transform spawnPoint = levelConfig.humanSpawnPoints[i].transform;
+            HumanType humanType = levelConfig.humanSpawnPoints[i].humanType;
+            GameObject humanObject = Instantiate(humanType.prefab, spawnPoint.position, Quaternion.identity, humanSpawnRoot);
+            Human human = humanObject.GetComponent<Human>();
+            if (human == null)
+            {
+                Debug.LogError($"Human prefab for type {humanType.id} does not have a Human component.");
+                continue;
+            }
+            human.Setup(humanType);
+            humans.Add(human);
+        }
 
         Debug.Log($"Loading Level {levelData.levelIndex}");
         return levelData;
@@ -110,9 +124,9 @@ public class LevelManager : MonoBehaviour
     /// <param name="config"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    private bool ValidHumanSpawnRootsEqualToCount(LevelEntityConfig config, LevelData data)
+    private bool ValidHumanSpawnEqualToCount(LevelEntityConfig config, LevelData data)
     {
-        return config.humanSpawnRoots.Length == data.initialHumanCount;
+        return config.humanSpawnPoints.Length == data.initialHumanCount;
     }
 
 

@@ -8,10 +8,10 @@ using UnityEngine.Tilemaps;
 public class LevelEntityConfig : MonoBehaviour
 {
     [SerializeField] private Tilemap _tileMap;
-    [SerializeField] private Transform _ghostSpawnRoot;
-    [SerializeField] private Transform[] _humanSpawnRoot;
+    [SerializeField] private Transform _ghostSpawnPoint;
+    [SerializeField] private HumanSpawnPoint[] _humanSpawnPoints;
 
     public Tilemap tileMap => _tileMap;
-    public Transform ghostSpawnRoot => _ghostSpawnRoot;
-    public Transform[] humanSpawnRoots => _humanSpawnRoot;
+    public Transform ghostSpawnPoint => _ghostSpawnPoint;
+    public HumanSpawnPoint[] humanSpawnPoints => _humanSpawnPoints;
 }

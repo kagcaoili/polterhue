@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Human : MonoBehaviour
+public class HumanOld : MonoBehaviour
 {
     public GhostTypeSpriteRegistry spriteRegistry;
     public Image spriteReference;

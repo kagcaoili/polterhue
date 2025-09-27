@@ -40,7 +40,7 @@ public class HumanManager : MonoBehaviour
         human.name = $"Human_{type}_{_humans.Count}";
         human.transform.SetParent(_humanRoot, false); // Set parent to root
 
-        Human humanComponent = human.GetComponent<Human>();
+        HumanOld humanComponent = human.GetComponent<HumanOld>();
         humanComponent.Setup(_humans.Count, type);
         humanComponent.RegisterLevelData(_currentLevelData);
 

@@ -9,7 +9,7 @@ using System;
 // Improvement: Since ghost and humans move the same, consider inheriting from generic UnitMovement to reduce redundancy
 public class HumanMovement : MonoBehaviour
 {
-    public Human human { get; private set; }
+    public HumanOld human { get; private set; }
     private System.Random _rng;
     private Vector2 _currentGridPos;
     private Vector2 _targetGridPos;
@@ -30,7 +30,7 @@ public class HumanMovement : MonoBehaviour
 
     public void Setup()
     {
-        human = GetComponent<Human>();
+        human = GetComponent<HumanOld>();
         _rng = new System.Random(GameManagerOld.Instance.seed + human.id + GameManagerOld.HUMAN_SEED_OFFSET);
         _levelData = human.levelData;
 

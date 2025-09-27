@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 2723608331491991555}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.5, y: -1.5, z: 0}
+  m_LocalPosition: {x: -7.5, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1622,7 +1622,7 @@ GameObject:
   - component: {fileID: 6432660034068154548}
   - component: {fileID: 3234711677555197561}
   m_Layer: 0
-  m_Name: Level1-Prefab
+  m_Name: Level2-Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1758,7 +1758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5059633348577699662}
-  - component: {fileID: 6210792668895405345}
+  - component: {fileID: 4134038366886452670}
   m_Layer: 5
   m_Name: HumanSpawn
   m_TagString: Untagged
@@ -1775,14 +1775,14 @@ Transform:
   m_GameObject: {fileID: 7378700358133538877}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7641061201866117493}
   m_Father: {fileID: 3944097767524018565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6210792668895405345
+--- !u!114 &4134038366886452670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1794,7 +1794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1007d442ab9e14d1baa5e7f4da7d55bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _humanType: {fileID: 11400000, guid: 8c6a1acd2525c40fcaa347fa43302cd0, type: 2}
+  _humanType: {fileID: 11400000, guid: 74a89a18d31d448cd8e5d33a8cb6aaf2, type: 2}
 --- !u!1 &8853230811756173944
 GameObject:
   m_ObjectHideFlags: 0

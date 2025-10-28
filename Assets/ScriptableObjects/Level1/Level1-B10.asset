@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level1-B10
   m_EditorClassIdentifier: 
   levelIndex: 0
-  initialHumanCount: 0
-  tileMapPrefab: {fileID: 5733536546476065027, guid: a4eac7d7fd59a43868ff6f16aea97135, type: 3}
+  initialHumanCount: 1
+  levelPrefab: {fileID: 5733536546476065027, guid: a4eac7d7fd59a43868ff6f16aea97135, type: 3}
   levelIntro: {fileID: 11400000, guid: fc6101d9f5ee14b428518a07dfa9e5c7, type: 2}
   levelOutro: {fileID: 11400000, guid: 201a1ba149b884c93bb74d2aa962f091, type: 2}

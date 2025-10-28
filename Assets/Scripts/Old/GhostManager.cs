@@ -42,8 +42,8 @@ public class GhostManager : MonoBehaviour
         ghost.transform.SetParent(_ghostRoot, false); // Set parent to ghostRoot
 
         Ghost ghostComponent = ghost.GetComponent<Ghost>();
-        ghostComponent.Setup(0, type);
-        ghostComponent.RegisterLevelData(_currentLevelData);
+        //ghostComponent.Setup(0, type);
+        //ghostComponent.RegisterLevelData(_currentLevelData);
 
         GhostMovement ghostMovement = ghost.GetComponent<GhostMovement>();
         ghostMovement.Setup(); // Initialize ghost movement

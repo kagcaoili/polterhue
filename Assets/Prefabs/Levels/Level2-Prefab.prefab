@@ -1659,9 +1659,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileMap: {fileID: 7615787997751884405}
-  _ghostSpawnRoot: {fileID: 1674542812083474741}
-  _humanSpawnRoot:
-  - {fileID: 5059633348577699662}
+  _ghostSpawnPoint: {fileID: 1674542812083474741}
+  _humanSpawnPoints:
+  - {fileID: 4134038366886452670}
 --- !u!1 &7369543452979981636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,7 +1678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7641061201866117493
 Transform:
   m_ObjectHideFlags: 0
@@ -1811,7 +1811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5705173463367154893
 Transform:
   m_ObjectHideFlags: 0

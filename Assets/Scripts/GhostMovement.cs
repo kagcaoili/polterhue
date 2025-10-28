@@ -10,7 +10,6 @@ using System;
 public class GhostMovement : MonoBehaviour
 {
     public Ghost ghost { get; private set; }
-    private System.Random _rng;
     private Vector2 _currentGridPos;
     private Vector2 _targetGridPos;
     private Vector2 _stepGridPos; // best next step between current and target grid position
@@ -31,14 +30,6 @@ public class GhostMovement : MonoBehaviour
     public void Setup()
     {
         ghost = GetComponent<Ghost>();
-        _rng = new System.Random(GameManagerOld.Instance.seed + ghost.id + GameManagerOld.GHOST_SEED_OFFSET);
-        _levelData = ghost.levelData;
-        /*
-        TODO: v2 Moving away from Random position generation. Use predefined spawn points instead.
-        _currentGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
-        _targetGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
-        _stepGridPos = GridUtil.GetNextStepGridPosition(_currentGridPos, _targetGridPos, directions);
-        */
 
         // TODO: Replace with predefined spawn points per level or AI behavior
         _currentGridPos = new Vector2(0, 0);
@@ -85,7 +76,6 @@ public class GhostMovement : MonoBehaviour
                 // TODO: v2 Moving away from Random positions. Stay still until ghost has a target action.
                 // Replace 0,0 with target position
                 _targetGridPos = new Vector2(0, 0);
-                //_targetGridPos = GridUtil.GetRandomGridPosition(_rng, _levelData);
                 _stepGridPos = GridUtil.GetNextStepGridPosition(_currentGridPos, _targetGridPos, directions);
                 moveTimer = 0f;
             }

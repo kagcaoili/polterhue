@@ -48,12 +48,14 @@ public class LevelManager : MonoBehaviour
 
         Tilemap tilemap = levelConfig.tileMap;
         tilemap.CompressBounds();
-        //levelData.SetGridBounds(tilemap.origin, tilemap.size);
-        //Debug.Log("Grid bounds set: " + levelData.gridOrigin + ", " + levelData.gridSize);
 
         // Reposition ghost to new spawn point in this level
-        // TODO: Concerned with mapping 3d position to 2d tilemap
-        mainGhost.transform.position = levelConfig.ghostSpawnPoint.position;
+        // Convert world position to screen position since ghost prefabs use screen space coordinates
+        // Improvement: Awkward coupling between world space and screen space here
+        Vector3 screenPosition = Camera.main.WorldToScreenPoint(levelConfig.ghostSpawnPoint.position);
+        mainGhost.transform.position = screenPosition;
+
+        Debug.Log($"Spawned ghost");
 
         // Instantiate humans at spawn points
         // Validate that the number of spawn points in the level matches the human count set in the data
@@ -63,11 +65,14 @@ public class LevelManager : MonoBehaviour
             return null;
         }
         humans = new List<Human>();
+        // Improvement: Consider having Human be responsible for positioning themselves at the spawn point
         for (int i = 0; i < levelData.initialHumanCount; i++)
         {
-            Transform spawnPoint = levelConfig.humanSpawnPoints[i].transform;
+            Transform worldSpawnPoint = levelConfig.humanSpawnPoints[i].transform;
+            Vector3 spawnPoint = Camera.main.WorldToScreenPoint(worldSpawnPoint.position);
             HumanType humanType = levelConfig.humanSpawnPoints[i].humanType;
-            GameObject humanObject = Instantiate(humanType.prefab, spawnPoint.position, Quaternion.identity, humanSpawnRoot);
+            GameObject humanObject = Instantiate(humanType.prefab, spawnPoint, Quaternion.identity, humanSpawnRoot);
+            Debug.Log($"Spawned human {humanType.id}");
             Human human = humanObject.GetComponent<Human>();
             if (human == null)
             {

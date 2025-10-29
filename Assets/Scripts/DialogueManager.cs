@@ -43,6 +43,7 @@ public class DialogueManager : MonoBehaviour
             foreach (var line in sequence.lines)
             {
                 queuedLines.Enqueue(new DialogueEntry(line, sequence));
+                Debug.Log("Appended dialogue line to queue: " + line.text);
             }
             return;
         }
@@ -51,6 +52,7 @@ public class DialogueManager : MonoBehaviour
         foreach (var line in sequence.lines)
         {
             queuedLines.Enqueue(new DialogueEntry(line, sequence));
+            Debug.Log("Queued dialogue line: " + line.text);
         }
         ShowNextLine(); // Prep first line before enabling UI
 
@@ -76,6 +78,8 @@ public class DialogueManager : MonoBehaviour
         // TODO: Clean up readability
         if (line.isLeftSide)
         {
+            Debug.Log("Displaying left dialogue line: " + line.text);
+
             leftText.text = line.text;
             leftPortrait.sprite = entry.sequence.defaultLeftPortrait;
             leftText.color = activeSpeakerColor;
@@ -84,6 +88,7 @@ public class DialogueManager : MonoBehaviour
             rightPortrait.color = inactiveSpeakerColor;
             rightPortrait.sprite = entry.sequence.defaultRightPortrait;
 
+            root.SetActive(true);
             leftText.gameObject.SetActive(true);
             leftPortrait.gameObject.SetActive(true);
             rightText.gameObject.SetActive(false);
@@ -91,6 +96,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Displaying right dialogue line: " + line.text);
+
             rightText.text = line.text;
             rightPortrait.sprite = entry.sequence.defaultRightPortrait;
             rightText.color = activeSpeakerColor;
@@ -99,6 +106,7 @@ public class DialogueManager : MonoBehaviour
             leftPortrait.color = inactiveSpeakerColor;
             leftPortrait.sprite = entry.sequence.defaultLeftPortrait;
 
+            root.SetActive(true);
             rightText.gameObject.SetActive(true);
             rightPortrait.gameObject.SetActive(true);
             leftText.gameObject.SetActive(false);

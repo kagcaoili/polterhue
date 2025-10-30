@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: Level1-IntroDS
   m_EditorClassIdentifier: 
   lines:
-  - text: Hello
+  - text: Hello?
     isLeftSide: 1
-  - text: Who are you?
-    isLeftSide: 0
-  - text: Lost. Can you help me home?
+  - text: Hello? Can you see me?
     isLeftSide: 1
   isBlocking: 1
   defaultLeftPortrait: {fileID: 21300000, guid: d5a2400590a524e0f888e18b85e311f3, type: 3}
-  defaultRightPortrait: {fileID: 21300000, guid: fd7d3a68ec2d84ed5aef37b308da6fdb, type: 3}
+  defaultRightPortrait: {fileID: 0}

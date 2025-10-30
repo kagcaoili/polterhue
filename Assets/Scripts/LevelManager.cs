@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using System.Collections;
+using UnityEngine.UI;
 
 /// <summary>
 /// Manages level loading and progression and creating entities in the level
@@ -85,6 +87,16 @@ public class LevelManager : MonoBehaviour
 
         Debug.Log($"Loading Level {levelData.levelIndex}");
         return levelData;
+    }
+
+    public IEnumerator RunFlow(List<FlowStep> steps, FlowContext context)
+    {
+        foreach (var step in steps)
+        {
+            Debug.Log($"Starting flow step: {step.id}");
+            yield return StartCoroutine(step.Run(context));
+            Debug.Log($"Completed flow step: {step.id}");
+        }
     }
 
     private void PlayerCompletedLevel()

@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     // Reference to local scene managers
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private DialogueManager dialogueManager;
+    [SerializeField] private FlowContext flowContext;
 
     private void Start()
     {
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
     private void Setup()
     {
         levelManager.OnLevelComplete += HandleLevelComplete;
-        dialogueManager.OnDialogueComplete += HandleDialogueComplete;
+        //dialogueManager.OnDialogueComplete += HandleDialogueComplete;
 
         dialogueManager.Setup(AppManager.Instance.InputManager);
     }
@@ -63,7 +64,9 @@ public class GameManager : MonoBehaviour
             // TODO: Load last saved level
         }
 
-        dialogueManager.PlayDialogue(currentLevelData.levelIntro);
+        //dialogueManager.PlayDialogue(currentLevelData.levelIntro);
+
+        StartCoroutine(levelManager.RunFlow(currentLevelData.steps, flowContext));
     }
 
     private void RunGame()
@@ -93,6 +96,8 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// Handles completion of dialogue, such as intro and outro
+    /// TODO: Consider turning this into concrete states instead of enum control
+    /// Temporarily disabled to focus on intro flow seq
     /// </summary>
     private void HandleDialogueComplete()
     {

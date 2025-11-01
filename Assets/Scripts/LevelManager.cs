@@ -60,8 +60,8 @@ public class LevelManager : MonoBehaviour
         Debug.Log($"Spawned ghost");
 
         // Instantiate humans at spawn points
-        // Validate that the number of spawn points in the level matches the human count set in the data
-        if (!ValidHumanSpawnEqualToCount(levelConfig, levelData))
+        // Validate that the number of spawn points in the level is greater than the human count set in the data
+        if (!ValidHumanSpawnToCount(levelConfig, levelData))
         {
             Debug.LogError($"Mismatch between human spawn points ({levelConfig.humanSpawnPoints.Length}) and initial human count ({levelData.initialHumanCount}) in LevelData {levelData.levelIndex}");
             return null;
@@ -136,14 +136,14 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Validates if the LevelEntityConfig has the correct number of human spawn points for LevelData
+    /// Validates if the LevelEntityConfig has enough human spawn points for LevelData
     /// </summary>
     /// <param name="config"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    private bool ValidHumanSpawnEqualToCount(LevelEntityConfig config, LevelData data)
+    private bool ValidHumanSpawnToCount(LevelEntityConfig config, LevelData data)
     {
-        return config.humanSpawnPoints.Length == data.initialHumanCount;
+        return config.humanSpawnPoints.Length >= data.initialHumanCount;
     }
 
 

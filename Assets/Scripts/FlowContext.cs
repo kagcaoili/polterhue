@@ -9,4 +9,6 @@ public class FlowContext : MonoBehaviour
     // Shared references for convenience
     public DialogueManager dialogueManager;
     public Image fadeOverlay;
+    public Spotlight spotlightEffect;
+    public Transform ghostTransform;
 }

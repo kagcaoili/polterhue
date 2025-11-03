@@ -21,7 +21,9 @@ public class SpotlightStep : FlowStep
         {
             case SpotlightTargetType.PlayerGhost:
                 {
-                    targetPosition = ctx.ghostTransform.position;
+                    // Player Ghost exists in UI space so transform to world
+                    targetPosition = Camera.main.ScreenToWorldPoint(ctx.ghostTransform.position);
+                    targetPosition.z = 0f; // Set z to 0 for 2D spotlight
                     break;
                 }
         }

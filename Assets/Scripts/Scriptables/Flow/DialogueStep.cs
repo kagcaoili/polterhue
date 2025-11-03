@@ -7,22 +7,25 @@ public class DialogueStep : FlowStep
     [Header("Content")]
     public DialogueSequence sequence;
 
-    bool dialogueFinished = false;
+    bool finished = false;
 
     public override IEnumerator Run(FlowContext ctx)
     {
+        finished = false; // reset for each run
+
         ctx.dialogueManager.OnDialogueComplete += HandleDialogueComplete;
         ctx.dialogueManager.PlayDialogue(sequence);
 
         // Wait until dialogue is finished
-        while (dialogueFinished == false)
+        while (!finished)
         {
             yield return null;
         }
     }
     private void HandleDialogueComplete()
     {
-        dialogueFinished = true;
+        Debug.Log("Dialogue complete");
+        finished = true;
     }
 
 

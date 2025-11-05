@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Holds a sequence of dialogue lines
@@ -18,6 +19,28 @@ public class DialogueSequence : ScriptableObject
     public Sprite defaultLeftPortrait; // if empty, hide left portrait
     public Sprite defaultRightPortrait; // if empty, hide right portrait
 
-    // TODO Future: Add conditions or triggers for when this dialogue should play
-    // For now, assume one dialogue sequence per level state (intro, outro)
+    // Custom input settings for advancing dialogue during this sequence
+    // Useful for tutorial prompts where player must use specific keys to advance
+    // If not enabled, default for advancing dialogue is mouse left button and space key
+    // TODO: Only support key inputs for now. No need for custom mouse inputs yet.
+    [Header("Custom Input Settings")]
+    [SerializeField] private bool useCustomKeyInputs = false;
+    [SerializeField] private List<KeyCode> customDialogueKeys = new();
+
+    /// <summary>
+    /// Apply custom input settings to the InputManager if configured
+    /// </summary>
+    public void ApplyInputSettings(InputManager inputManager)
+    {
+        if (useCustomKeyInputs)
+        {
+            inputManager.SetDialogueInputs(false, 0, true, customDialogueKeys);
+        }
+        else
+        {
+            // Reset to default dialogue inputs
+            inputManager.SetDialogueInputs();
+        }
+    }
+
 }

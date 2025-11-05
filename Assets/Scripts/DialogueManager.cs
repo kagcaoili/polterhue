@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Image leftPortrait;
     [SerializeField] private TextMeshProUGUI rightText;
     [SerializeField] private Image rightPortrait;
+    [SerializeField] private TextMeshProUGUI middleText;
 
     [Header("Settings")]
     [SerializeField] private Color activeSpeakerColor; // white, full alpha
@@ -37,6 +38,10 @@ public class DialogueManager : MonoBehaviour
     /// <param name="sequence"></param>
     public void PlayDialogue(DialogueSequence sequence)
     {
+        // Setup input settings for this dialogue sequence
+        // Allows control over which keys or mouse buttons advance dialogue
+        sequence.ApplyInputSettings(_inputManager);
+
         // Already playing dialogue, append new lines to queue
         if (queuedLines != null && queuedLines.Count > 0)
         {
@@ -75,42 +80,17 @@ public class DialogueManager : MonoBehaviour
         DialogueLine line = entry.line;
 
         // TODO: Animate text display over time instead of instant
-        // TODO: Clean up readability
-        if (line.isLeftSide)
+        switch (line.alignment)
         {
-            Debug.Log("Displaying left dialogue line: " + line.text);
-
-            leftText.text = line.text;
-            leftPortrait.sprite = entry.sequence.defaultLeftPortrait;
-            leftText.color = activeSpeakerColor;
-            leftPortrait.color = activeSpeakerColor;
-            rightText.color = inactiveSpeakerColor;
-            rightPortrait.color = inactiveSpeakerColor;
-            rightPortrait.sprite = entry.sequence.defaultRightPortrait;
-
-            root.SetActive(true);
-            leftText.gameObject.SetActive(true);
-            leftPortrait.gameObject.SetActive(true);
-            rightText.gameObject.SetActive(false);
-            rightPortrait.gameObject.SetActive(false);
-        }
-        else
-        {
-            Debug.Log("Displaying right dialogue line: " + line.text);
-
-            rightText.text = line.text;
-            rightPortrait.sprite = entry.sequence.defaultRightPortrait;
-            rightText.color = activeSpeakerColor;
-            rightPortrait.color = activeSpeakerColor;
-            leftText.color = inactiveSpeakerColor;
-            leftPortrait.color = inactiveSpeakerColor;
-            leftPortrait.sprite = entry.sequence.defaultLeftPortrait;
-
-            root.SetActive(true);
-            rightText.gameObject.SetActive(true);
-            rightPortrait.gameObject.SetActive(true);
-            leftText.gameObject.SetActive(false);
-            leftPortrait.gameObject.SetActive(false);
+            case DialogueLine.Alignment.Left:
+                UpdateUI(leftText, leftPortrait, line.text, entry.sequence.defaultLeftPortrait, line.alignment);
+                break;
+            case DialogueLine.Alignment.Right:
+                UpdateUI(rightText, rightPortrait, line.text, entry.sequence.defaultRightPortrait, line.alignment);
+                break;
+            case DialogueLine.Alignment.Center:
+                UpdateUI(middleText, null, line.text, null, line.alignment);
+                break;
         }
     }
 
@@ -124,5 +104,46 @@ public class DialogueManager : MonoBehaviour
         _inputManager.OnAdvanceDialogue -= ShowNextLine;
         root.SetActive(false);
         OnDialogueComplete?.Invoke();
+    }
+
+    private void UpdateUI(TextMeshProUGUI textElement, Image portraitElement, string text, Sprite defaultPortrait, DialogueLine.Alignment alignment)
+    {
+        if (textElement != null)
+            textElement.text = text;
+            
+        if (portraitElement != null)
+            portraitElement.sprite = defaultPortrait;
+
+        root.SetActive(true);
+        ActivateSpeaker(alignment);
+    }
+    
+    private void ActivateSpeaker(DialogueLine.Alignment alignment)
+    {
+        leftText.gameObject.SetActive(false);
+        leftPortrait.gameObject.SetActive(false);
+        rightText.gameObject.SetActive(false);
+        rightPortrait.gameObject.SetActive(false);
+        middleText.gameObject.SetActive(false);
+
+        switch (alignment)
+        {
+            case DialogueLine.Alignment.Left:
+                leftText.color = activeSpeakerColor;
+                leftPortrait.color = activeSpeakerColor;
+                leftText.gameObject.SetActive(true);
+                leftPortrait.gameObject.SetActive(true);
+                break;
+            case DialogueLine.Alignment.Right:
+                rightText.color = activeSpeakerColor;
+                rightPortrait.color = activeSpeakerColor;
+                rightText.gameObject.SetActive(true);
+                rightPortrait.gameObject.SetActive(true);
+                break;
+            case DialogueLine.Alignment.Center:
+                middleText.color = activeSpeakerColor;
+                middleText.gameObject.SetActive(true);
+                break;
+        }
     }
 }

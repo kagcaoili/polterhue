@@ -118,7 +118,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Level Complete!");
         currentState = GameState.Outro;
-        dialogueManager.PlayDialogue(currentLevelData.levelOutro);
 
         // Stop playing game loop CR
         if (gameCoroutine != null)

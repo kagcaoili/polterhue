@@ -11,6 +11,12 @@ public class DialogueLine
     [TextArea]
     public string text; // The dialogue body
 
-    public bool isLeftSide = true; // If true, line is spoken as if from left side of screen. Otherwise right
+    public enum Alignment
+    {
+        Left = 0,
+        Right = 1,
+        Center = 2
+    }
+    public Alignment alignment = Alignment.Left; // Alignment of the dialogue line
     
 }

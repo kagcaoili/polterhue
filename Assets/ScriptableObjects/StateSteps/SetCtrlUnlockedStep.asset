@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61cce1f2a3e344c1d8d1ca12c61b8d24, type: 3}
-  m_Name: 5-DS-CtrlPrompt
+  m_Script: {fileID: 11500000, guid: 9b92ed0a6b6d64b648e655b894df6203, type: 3}
+  m_Name: SetCtrlUnlockedStep
   m_EditorClassIdentifier: 
-  id: ctrl-prompt
-  description: System tutorial explaining how to open ctrl mode
-  sequence: {fileID: 11400000, guid: 253cf32f8c8bd4a05bb7505311f3bcce, type: 2}
+  id: SetCtrlUnlockedStep
+  description: Sets player state's ctrl unlocked mode to true
+  stateKey: 0

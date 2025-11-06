@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 // Singleton Service Locator for app-wide services
 // Improvement: Consider using a Dependency Injection pattern for better scalability
@@ -12,7 +11,11 @@ public class AppManager : MonoBehaviour
     public SaveManager SaveManager { get; private set; }
     public DebugManager DebugManager { get; private set; }
     public InputManager InputManager { get; private set; }
+
     // Add other managers here as needed
+
+    [SerializeField] private MonoBehaviour playerStateProvider;
+    public IPlayerStateService PlayerState; // Abstracted player state service
 
     #region Singleton
     void Awake()
@@ -31,6 +34,12 @@ public class AppManager : MonoBehaviour
         SaveManager = GetComponentInChildren<SaveManager>();
         DebugManager = GetComponentInChildren<DebugManager>();
         InputManager = GetComponentInChildren<InputManager>();
+
+        PlayerState = playerStateProvider as IPlayerStateService;
+        if (PlayerState == null)
+        {
+            Debug.LogError("PlayerStateProvider not provided on AppManager.");
+        }
     }
     #endregion
 

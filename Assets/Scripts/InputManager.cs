@@ -11,7 +11,9 @@ using UnityEngine;
 /// </summary>
 public class InputManager : MonoBehaviour
 {
+    // Events accessible by other systems
     public event Action OnAdvanceDialogue;
+    public event Action OnCtrlModeToggle;
 
     // Default advance inputs are left mouse button and space bar
     [Header("Default Dialogue Input Settings")]
@@ -23,6 +25,17 @@ public class InputManager : MonoBehaviour
     // Current dialogue input settings
     private List<KeyCode> dialogueKeys = new List<KeyCode> { KeyCode.Space };
 
+    // Player state service references
+    private IPlayerStateService playerState;
+    private bool unlocked_CtrlMode = false;
+
+    #region MonoBehaviour Methods
+    void Awake()
+    {
+        playerState = AppManager.Instance.PlayerState;
+        playerState.OnStateSet += HandlePlayerStateSet; // InputManager listens for player state changes
+    }
+    
     void Update()
     {
         bool inputDetected = false;
@@ -47,11 +60,25 @@ public class InputManager : MonoBehaviour
             }
         }
 
+        // Trigger event if any dialogue advance input detected
         if (inputDetected)
         {
             OnAdvanceDialogue?.Invoke();
         }
+
+        // Trigger Ctrl mode toggle event
+        if (unlocked_CtrlMode && (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)))
+        {
+            Debug.Log("InputManager: Ctrl mode toggled");
+            OnCtrlModeToggle?.Invoke();
+        }
+        
     }
+    #endregion
+
+
+
+    #region Setting Custom Inputs
 
     /// <summary>
     /// Set dialogue inputs to default settings
@@ -111,4 +138,21 @@ public class InputManager : MonoBehaviour
             dialogueKeys.Clear();
         }
     }
+
+    #endregion
+
+    #region Player State Handling
+
+    /// <summary>
+    /// If state has changed, update local flags accordingly
+    /// </summary>
+    private void HandlePlayerStateSet(PlayerStateKey stateKey)
+    {
+        if (stateKey == PlayerStateKey.Unlocked_CtrlMode)
+        {
+            unlocked_CtrlMode = true;
+        }
+    }
+
+    #endregion
 }

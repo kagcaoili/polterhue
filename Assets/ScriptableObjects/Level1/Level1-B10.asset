@@ -15,8 +15,6 @@ MonoBehaviour:
   levelIndex: 0
   initialHumanCount: 0
   levelPrefab: {fileID: 5733536546476065027, guid: a4eac7d7fd59a43868ff6f16aea97135, type: 3}
-  levelIntro: {fileID: 11400000, guid: fc6101d9f5ee14b428518a07dfa9e5c7, type: 2}
-  levelOutro: {fileID: 11400000, guid: 201a1ba149b884c93bb74d2aa962f091, type: 2}
   steps:
   - {fileID: 11400000, guid: 44112da18039a4236be2b5ff47467beb, type: 2}
   - {fileID: 11400000, guid: aaef5a325ea30477484a84b8f87b8ec8, type: 2}
@@ -24,3 +22,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa6c9d86ee4cf474a966c3385d6f8388, type: 2}
   - {fileID: 11400000, guid: 3eb3c176616504f0191bf0e593a98111, type: 2}
   - {fileID: 11400000, guid: 8316cd0753a3f496593918cbebdeddea, type: 2}
+  - {fileID: 11400000, guid: 0261fe26db0b3439393ee12e58077f43, type: 2}
+  - {fileID: 11400000, guid: 9ec95d84556864d6bb0fb34c8ec64037, type: 2}

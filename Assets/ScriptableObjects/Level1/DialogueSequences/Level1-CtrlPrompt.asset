@@ -18,3 +18,5 @@ MonoBehaviour:
   isBlocking: 1
   defaultLeftPortrait: {fileID: 0}
   defaultRightPortrait: {fileID: 0}
+  useCustomKeyInputs: 1
+  customDialogueKeys: 3201000031010000

@@ -11,6 +11,7 @@ public class AppManager : MonoBehaviour
     public SaveManager SaveManager { get; private set; }
     public DebugManager DebugManager { get; private set; }
     public InputManager InputManager { get; private set; }
+    public ControlModeManager ControlModeManager { get; private set; }
 
     // Add other managers here as needed
 
@@ -30,10 +31,12 @@ public class AppManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        // Warning: any of these managers can't be referenced until after Awake()
         AudioManager = GetComponentInChildren<AudioManager>();
         SaveManager = GetComponentInChildren<SaveManager>();
         DebugManager = GetComponentInChildren<DebugManager>();
         InputManager = GetComponentInChildren<InputManager>();
+        ControlModeManager = GetComponentInChildren<ControlModeManager>();
 
         PlayerState = playerStateProvider as IPlayerStateService;
         if (PlayerState == null)

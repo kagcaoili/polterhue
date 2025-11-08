@@ -10,8 +10,10 @@ public class LevelEntityConfig : MonoBehaviour
     [SerializeField] private Tilemap _tileMap;
     [SerializeField] private Transform _ghostSpawnPoint;
     [SerializeField] private HumanSpawnPoint[] _humanSpawnPoints;
+    [SerializeField] private ControlModeTextSpawnPoint[] _controlModeTextSpawnPoints;
 
     public Tilemap tileMap => _tileMap;
     public Transform ghostSpawnPoint => _ghostSpawnPoint;
     public HumanSpawnPoint[] humanSpawnPoints => _humanSpawnPoints;
+    public ControlModeTextSpawnPoint[] controlModeTextSpawnPoints => _controlModeTextSpawnPoints;
 }

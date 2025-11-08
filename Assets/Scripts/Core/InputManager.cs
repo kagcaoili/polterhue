@@ -12,6 +12,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     // Events accessible by other systems
+    // Improvement: Update to match ControlModeSignal pattern
     public event Action OnAdvanceDialogue;
     public event Action OnCtrlModeToggle;
 

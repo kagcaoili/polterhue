@@ -577,6 +577,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6f40a306d37e64874a1d2b22844017a0, type: 2}
   levelMapRoot: {fileID: 1636637800}
   humanSpawnRoot: {fileID: 1844932869}
+  controlModeTextRoot: {fileID: 1390182894}
   mainGhost: {fileID: 1285719398}
 --- !u!1 &486276866
 GameObject:
@@ -2562,6 +2563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelManager: {fileID: 486032774}
   dialogueManager: {fileID: 1822180563}
+  controlModeManager: {fileID: 1301910594}
   flowContext: {fileID: 217768593}
 --- !u!1 &2033992507
 GameObject:

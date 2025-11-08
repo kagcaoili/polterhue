@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     // Reference to local scene managers
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private DialogueManager dialogueManager;
+    [SerializeField] private ControlModeManager controlModeManager;
     [SerializeField] private FlowContext flowContext;
 
     private void Start()

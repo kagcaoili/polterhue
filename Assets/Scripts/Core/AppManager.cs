@@ -11,7 +11,6 @@ public class AppManager : MonoBehaviour
     public SaveManager SaveManager { get; private set; }
     public DebugManager DebugManager { get; private set; }
     public InputManager InputManager { get; private set; }
-    public ControlModeManager ControlModeManager { get; private set; }
 
     // Add other managers here as needed
 
@@ -36,7 +35,6 @@ public class AppManager : MonoBehaviour
         SaveManager = GetComponentInChildren<SaveManager>();
         DebugManager = GetComponentInChildren<DebugManager>();
         InputManager = GetComponentInChildren<InputManager>();
-        ControlModeManager = GetComponentInChildren<ControlModeManager>();
 
         PlayerState = playerStateProvider as IPlayerStateService;
         if (PlayerState == null)

@@ -40,51 +40,6 @@ public class GhostMovement : MonoBehaviour
     // Wait for GhostManager to say it's ok to move
     public void Tick(float deltaTime, bool beginMove)
     {
-        // Begin next step
-        if (beginMove)
-        {
-            isMoving = true;
-        }
-
-        if (!isMoving)
-        {
-            return;
-        }
-
-        moveTimer += deltaTime;
-        float t = Mathf.Clamp01(moveTimer / moveDuration);
-
-        Vector3 startPos = GridUtil.GridToWorldPosition(_currentGridPos);
-        Vector3 stepPos = GridUtil.GridToWorldPosition(_stepGridPos);
-        Vector3 targetPos = GridUtil.GridToWorldPosition(_targetGridPos);
-
-        transform.position = Vector3.Lerp(startPos, stepPos, t);
-
-        // Draw debug lines for movement
-        Debug.DrawLine(startPos, targetPos, Color.white);
-
-        // We reached the step position
-        if (t >= 1f)
-        {
-            _currentGridPos = _stepGridPos; // Update current position to current step position
-            GameManagerOld.Instance.gridManager.RegisterGhostArrival(this, _currentGridPos); // Notify ghost manager of new position for collision detection
-            isMoving = false;
-
-            // We reached target position.
-            if (_currentGridPos == _targetGridPos)
-            {
-                // TODO: v2 Moving away from Random positions. Stay still until ghost has a target action.
-                // Replace 0,0 with target position
-                _targetGridPos = new Vector2(0, 0);
-                _stepGridPos = GridUtil.GetNextStepGridPosition(_currentGridPos, _targetGridPos, directions);
-                moveTimer = 0f;
-            }
-            else
-            {
-                // Get next step towards target position
-                _stepGridPos = GridUtil.GetNextStepGridPosition(_currentGridPos, _targetGridPos, directions);
-                moveTimer = 0f; // Reset timer for next movement
-            }
-        }
+        
     }
 }

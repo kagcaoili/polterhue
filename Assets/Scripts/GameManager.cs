@@ -8,17 +8,11 @@ public class GameManager : MonoBehaviour
     // Singleton to manage game state, global references, and flow
     public static GameManager Instance { get; private set; }
 
-    [SerializeField]
     public LevelManager levelManager {get; private set; }
-    [SerializeField]
     public GhostManager ghostManager { get; private set; }
-    [SerializeField]
     public PortalManager portalManager { get; private set; }
-    [SerializeField]
     public HumanManager humanManager { get; private set; }
-    [SerializeField]
     public GridManager gridManager { get; private set; }
-    [SerializeField]
     public SoulManager soulManager { get; private set; }
 
     private SceneContext _sceneContext;

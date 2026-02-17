@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class ControlModeManager : MonoBehaviour
 {
-
     [SerializeField] private GameObject overlay;
 
     // Shake when player types with Ctrl mode enabled
     [SerializeField] private Screenshake screenshake;
 
-    private InputManager inputManager;
     private bool active; // Is Ctrl mode currently active
 
     void OnEnable()
@@ -24,16 +22,14 @@ public class ControlModeManager : MonoBehaviour
 
     void OnDestroy() 
     {
-        if (inputManager != null)
-        {
-            inputManager.OnCtrlModeToggle -= HandleCtrlModeToggle;
-        }
+        ControlModeSignals.OnCtrlModeToggle -= HandleCtrlModeToggle;
+        ControlModeSignals.OnCtrlModeChanged -= HandleCtrlModeChanged;
     }
 
     void Start()
     {
-        inputManager = AppManager.Instance.InputManager;
-        inputManager.OnCtrlModeToggle += HandleCtrlModeToggle;
+        ControlModeSignals.OnCtrlModeToggle += HandleCtrlModeToggle;
+        ControlModeSignals.OnCtrlModeChanged += HandleCtrlModeChanged;
         SetActive(false); // default to inactive
     }
 
@@ -42,6 +38,12 @@ public class ControlModeManager : MonoBehaviour
     {
         Debug.Log("ControlModeManager: Ctrl mode toggled to " + !active);
         SetActive(!active);
+    }
+
+    private void HandleCtrlModeChanged(bool isActive)
+    {
+        Debug.Log("ControlModeManager: Ctrl mode changed to " + isActive);
+        SetActive(isActive);
     }
 
     // Helper to hide all control mode UI elements
@@ -54,7 +56,6 @@ public class ControlModeManager : MonoBehaviour
             overlay.SetActive(isActive);
         }
 
-        ControlModeSignals.RaiseCtrlModeChanged(isActive);
     }
 
     void Update()

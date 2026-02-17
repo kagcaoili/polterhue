@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR;
 
 /// <summary>
 /// Handles displaying text for this action during control mode
@@ -43,6 +44,7 @@ public class ControlModeText : MonoBehaviour
     void OnEnable()
     {
         // Subscribe to control mode events
+        ControlModeSignals.OnCtrlModeToggle += HandleCtrlModeToggle;
         ControlModeSignals.OnCtrlModeChanged += HandleCtrlModeChanged;
         ControlModeSignals.OnCtrlLetterTyped += HandleCtrlLetterTyped;
     }
@@ -50,6 +52,7 @@ public class ControlModeText : MonoBehaviour
     void OnDisable()
     {
         // Unsubscribe from control mode events
+        ControlModeSignals.OnCtrlModeToggle -= HandleCtrlModeToggle;
         ControlModeSignals.OnCtrlModeChanged -= HandleCtrlModeChanged;
         ControlModeSignals.OnCtrlLetterTyped -= HandleCtrlLetterTyped;
     }
@@ -57,6 +60,11 @@ public class ControlModeText : MonoBehaviour
     #endregion
 
     #region Event Handlers
+
+    private void HandleCtrlModeToggle()
+    {
+        HandleCtrlModeChanged(rootObject.activeSelf); // toggle based on current state
+    }
 
     private void HandleCtrlModeChanged(bool isActive)
     {
@@ -90,7 +98,10 @@ public class ControlModeText : MonoBehaviour
             if (currentIndex >= baseText.Length)
             {
                 Debug.Log($"ControlModeText: Word '{baseText}' completed!");
-                // TODO: Trigger action completion event
+
+                // Trigger action completion event
+                // Disable ctrl mode when completed
+                ControlModeSignals.RaiseCtrlModeChanged(false);
             }
         }
         else
@@ -100,7 +111,6 @@ public class ControlModeText : MonoBehaviour
             Debug.Log($"ControlModeText: Wrong letter '{letter}' at position {currentIndex}. Expected '{(currentIndex < baseText.Length ? baseText[currentIndex] : "none")}'");
         }
     }
-
     #endregion
 
     #region Private helpers

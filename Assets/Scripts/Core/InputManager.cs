@@ -14,7 +14,6 @@ public class InputManager : MonoBehaviour
     // Events accessible by other systems
     // Improvement: Update to match ControlModeSignal pattern
     public event Action OnAdvanceDialogue;
-    public event Action OnCtrlModeToggle;
 
     // Default advance inputs are left mouse button and space bar
     [Header("Default Dialogue Input Settings")]
@@ -71,7 +70,7 @@ public class InputManager : MonoBehaviour
         if (unlocked_CtrlMode && (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)))
         {
             Debug.Log("InputManager: Ctrl mode toggled");
-            OnCtrlModeToggle?.Invoke();
+            ControlModeSignals.RaiseCtrlModeToggle();
         }
         
     }

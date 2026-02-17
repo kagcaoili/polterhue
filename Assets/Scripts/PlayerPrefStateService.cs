@@ -19,6 +19,9 @@ public class PlayerPrefStateService : MonoBehaviour, IPlayerStateService
         // Improvement: Consider loading all keys dynamically if many states exist
         // For now, hardcode known state keys to load
         LoadState(PlayerStateKey.Unlocked_CtrlMode);
+
+        // Note: Unlocked_IdString states are dynamic based on ids, so not pre-loaded here
+        
     }
 
     void LoadState(PlayerStateKey stateKey)
@@ -39,7 +42,9 @@ public class PlayerPrefStateService : MonoBehaviour, IPlayerStateService
     public void SetState(PlayerStateKey stateKey)
     {
         Debug.Log($"Setting player state: {stateKey}");
+
         PlayerPrefs.SetInt(stateKey.ToString(), 1);
+        
         stateKeys.Add(stateKey);
         OnStateSet?.Invoke(stateKey);
     }

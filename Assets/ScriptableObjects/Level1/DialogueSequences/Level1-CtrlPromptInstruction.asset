@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Level1-CtrlPromptInstruction
   m_EditorClassIdentifier: 
   lines:
-  - text: Press Ctrl to Toggle Control Mode
+  - text: Type the words shown to trigger the behavior
     alignment: 2
   isBlocking: 1
   defaultLeftPortrait: {fileID: 0}
   defaultRightPortrait: {fileID: 0}
   useCustomKeyInputs: 1
-  customDialogueKeys: 3201000031010000
+  customDialogueKeys: 68000000
